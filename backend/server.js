@@ -31,8 +31,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+// Serve static files from the 'dist' folder (after running Vite build)
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // Add an employee
 app.post('/registrations', async (req, res) => {
@@ -97,9 +97,9 @@ app.delete('/registrations/:id', async (req, res) => {
     }
 });
 
-// Serve the React app for all other routes
+// Serve the React app for all other routes (Single Page Application fallback)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 // Start the server
